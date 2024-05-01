@@ -18,14 +18,13 @@ public class FabricanteService {
         return repository.findAll();
     }
 
-    public void inserirFabricantes(DadosCriacaoFabricante dadosCriacaoFabricante) {
-        Fabricante fabricante = new Fabricante();
-        fabricante.setNome(dadosCriacaoFabricante.nome());
-
-        repository.save(fabricante);
-    }
+        public void inserirFabricantes(String nome) {
+            Fabricante fabricante = new Fabricante();
+            fabricante.setNome(nome);
+            repository.save(fabricante);
+        }
 
     public void deletarFabricante(Integer id) {
-        repository.deletarPorId(id);
+        repository.deleteById(id);
     }
 }

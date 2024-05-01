@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Controller
+@RestController
 @RequestMapping("/api/fabricante")
 public class FabricanteController {
 
@@ -24,13 +24,13 @@ public class FabricanteController {
 
     @GetMapping
     public ResponseEntity<List<Fabricante>> getFabricantes() {
-        return ResponseEntity.status(HttpStatus.CREATED).body(service.obterFabricantes());
+        return ResponseEntity.status(HttpStatus.OK).body(service.obterFabricantes());
     }
 
     @PostMapping
-    public ResponseEntity<String> salvarFabricantes(@RequestBody DadosCriacaoFabricante dadosCriacaoFabricante) {
+    public ResponseEntity<String> salvarFabricantes(@RequestBody Fabricante fabricante) {
         try {
-            service.inserirFabricantes(dadosCriacaoFabricante);
+            service.inserirFabricantes(fabricante.getNome());
             return ResponseEntity.status(HttpStatus.CREATED).body("Fabricante inserido com sucesso");
         } catch (Exception ex) {
             ex.printStackTrace();
