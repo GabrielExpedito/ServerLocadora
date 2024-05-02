@@ -1,6 +1,5 @@
 package Gabriel.ServerLocadora.Service;
 
-import Gabriel.ServerLocadora.entity.DadosCriacaoFabricante;
 import Gabriel.ServerLocadora.entity.Fabricante;
 import Gabriel.ServerLocadora.repository.FabricanteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
