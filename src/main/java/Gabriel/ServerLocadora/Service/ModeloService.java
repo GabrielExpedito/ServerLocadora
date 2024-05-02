@@ -19,4 +19,11 @@ public class ModeloService {
         return repository.findAll();
     }
 
+    public void inserirModelo(String nome, Integer id) {
+        Modelo modelo = new Modelo();
+        modelo.setNome(nome);
+        modelo.setId(id);
+        repository.save(modelo);
+    }
+
 }
