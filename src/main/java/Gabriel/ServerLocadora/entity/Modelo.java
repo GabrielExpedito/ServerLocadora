@@ -1,5 +1,6 @@
 package Gabriel.ServerLocadora.entity;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
@@ -17,6 +18,7 @@ import lombok.NoArgsConstructor;
 public class Modelo {
 
     @jakarta.persistence.Id
+    @Column(name = "Id", unique = true)
     private Integer Id;
     private String nome;
     private Integer idfabricante;

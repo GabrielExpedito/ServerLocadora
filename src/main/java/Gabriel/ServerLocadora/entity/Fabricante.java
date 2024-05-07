@@ -16,7 +16,7 @@ public class Fabricante {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+    @Column(name = "id", unique = true)
     private Integer id;
 
     private String nome;
