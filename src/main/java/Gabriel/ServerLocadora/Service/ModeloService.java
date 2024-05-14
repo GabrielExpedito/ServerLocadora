@@ -15,13 +15,13 @@ public class ModeloService {
     ModeloRepository repository;
 
 
-    public List<Modelo> obterModelos(){
+    public List<Modelo> obterModelos() {
         return repository.findAll();
     }
 
     public Modelo obterModeloById(Integer id) {
         return repository.findById(id).orElseThrow(() ->
-            new RuntimeException("Modelo não encontrado")
+                new RuntimeException("Modelo não encontrado")
         );
     }
 
@@ -37,4 +37,10 @@ public class ModeloService {
         repository.deleteById(id);
     }
 
+    public void salvarModelo(Modelo modelo) {
+        repository.save(modelo);
+
+    }
+
 }
+
