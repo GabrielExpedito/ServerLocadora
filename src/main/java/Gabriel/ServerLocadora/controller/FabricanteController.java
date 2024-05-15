@@ -12,18 +12,39 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+/*Classe FabricanteController, é responsável pelo processamento das requisições e por gerar respostas referente a
+entidade Fabricante.
+* */
 @RestController
 @RequestMapping("/api/fabricante")
 public class FabricanteController {
 
+
+    /*Injeção da dependência do FabricanteService.
+    *
+    * Com a anotação @Autowired, o Spring vai gerenciar a injeção de dependência do FabricanteService.
+    * Sendo assim ele vai criar uma instância do FabricanteService para poder acessar seus métodos.
+    * */
     @Autowired
     FabricanteService service;
 
+    /*Método para realizar Select * From na tabela Fabricante.
+    *Utilizando a anotação GetMapping é feita a solicitação para buscar as informações do banco.
+    *
+    *
+    *Sendo assim esse método busca os registros inseridos na tabela Fabricante e demonstra eles na tela.
+    * */
     @GetMapping
     public ResponseEntity<List<Fabricante>> getFabricantes() {
         return ResponseEntity.status(HttpStatus.OK).body(service.obterFabricantes());
     }
 
+    /*Método para realizar Select from Fabricante = "id".
+    * Utilizando a anotação GetMapping é feita a solicitação para buscar as informações do banco conforme id informado.
+    *
+    *
+    * Sendo assim esse método busca o registro inserido na tabela Fabricante conforme o id informado.
+    * */
     @GetMapping("/{id}")
     public ResponseEntity<Fabricante> getFabricante(@PathVariable(value = "id") Integer id) {
         try {
@@ -34,6 +55,13 @@ public class FabricanteController {
         }
     }
 
+
+    /*Método para realizar inserir into Fabricantes
+    * Utilizando a anotação PostMapping é utilizado para mapear as inserçoes que serão solicitadas por métodos
+    * específicos
+    *
+    * Sendo assim esse método inseri novos registros ao banco de dados conforme os atributos da entidade Fabricante.
+    * */
     @PostMapping
     public ResponseEntity<String> salvarFabricantes(@RequestBody Fabricante fabricante) {
         try {
@@ -45,6 +73,12 @@ public class FabricanteController {
         }
     }
 
+    /*Método para realizar Delete na tabela Fabricante no banco de dados
+     * Utilizando a anotação @DeleteMapping, anotação essa que é usada para deletar registros utilizando o HTTP DELETE
+     *
+     * Sendo assim esse método solicita que seja deletado algum registro do banco através do ID informado no
+     * acesso do endpoit
+     * */
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deletarFabricante(@PathVariable(value = "id") Integer id) {
         try {
@@ -56,6 +90,13 @@ public class FabricanteController {
         }
     }
 
+    /*Método para realizar UPDATE nas informações salva no banco de dados
+     * Utilizando a anotação PutMapping é utilizada para mapear as solicitações em métodos manipuladores específicos
+     * é uma anotação composta que atua como um atalho para @ResquetMapping.
+     *
+     * Sendo assim esse método pega as novas informações que serão atualizadas conforme o ID do fabricante e
+     * persisti elas no banco de dados.
+     * */
     @PutMapping("/{id}")
     public ResponseEntity<String> atualizarFabricante(@PathVariable(value = "id") Integer id,
                                                       @RequestBody FabricanteDTO fabricanteDTO) {

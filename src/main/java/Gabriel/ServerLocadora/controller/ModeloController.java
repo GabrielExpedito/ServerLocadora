@@ -15,7 +15,7 @@ import java.util.List;
 
 /*
  * Classe ModeloController, é responsável pelo processamento das requisições e por gerar as respostas referente
- * ao objeto Fabricante
+ * a entidade Modelo
  * */
 @RestController
 @RequestMapping("/api/modelo")
@@ -42,6 +42,7 @@ public class ModeloController {
     public ResponseEntity<String> atualizarModelos(@PathVariable(value = "id") Integer id,
                                                    @RequestBody ModeloDTO modeloDTO) {
         Modelo modelo = service.obterModeloById(id);
+
 
         BeanUtils.copyProperties(modeloDTO, modelo);
         service.salvarModelo(modelo);
@@ -77,6 +78,11 @@ public class ModeloController {
 
     }
 
+    /*Método para realizar Insert na tabela Modelo no banco de dados
+    * Utilizando a anotação @PostMapping, anotação essa que é usada pra mandar registros usando HTTP POST
+    *
+    * Sendo assim esse método solicita que sejam inseridos dados dentro do banco de dados.
+    * */
     @PostMapping
     public ResponseEntity<String> inserirModelo(@RequestBody Modelo modelo) {
         try {
@@ -89,6 +95,12 @@ public class ModeloController {
         }
     }
 
+    /*Método para realizar Delete na tabela Modelo no banco de dados
+    * Utilizando a anotação @DeleteMapping, anotação essa que é usada para deletar registros utilizando o HTTP DELETE
+    *
+    * Sendo assim esse método solicita que seja deletado algum registro do banco através do ID informado no
+    * acesso do endpoit
+    * */
     @DeleteMapping("{id}")
     public ResponseEntity<String> deletarModelo(@PathVariable(value = "id") Integer id) {
         try {

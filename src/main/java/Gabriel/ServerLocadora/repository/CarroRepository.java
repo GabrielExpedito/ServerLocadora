@@ -1,11 +1,10 @@
 package Gabriel.ServerLocadora.repository;
 
-import Gabriel.ServerLocadora.entity.Modelo;
 import org.springframework.data.jpa.repository.JpaRepository;
+import Gabriel.ServerLocadora.entity.Carro;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface ModeloRepository extends JpaRepository<Modelo, Integer> {
-
+public interface CarroRepository extends JpaRepository<Carro, Integer> {
 
 }
