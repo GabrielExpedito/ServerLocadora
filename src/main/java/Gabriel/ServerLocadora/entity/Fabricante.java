@@ -14,9 +14,7 @@ import lombok.NoArgsConstructor;
 *   A anotação @AllArgsConstructor faz com que os métodos construtores com todos os atributos seja criado automaticamente.
 *   A anotação @NoArgsConstructos faz com que os méotodos construtores sem nenhum atributo seja criado automaticamente.
 * */
-@Table(name = "fabricante")
 @Entity(name = "Fabricante")
-@EqualsAndHashCode(of = "id")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
