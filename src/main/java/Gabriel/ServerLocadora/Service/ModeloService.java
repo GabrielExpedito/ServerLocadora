@@ -1,8 +1,10 @@
 package Gabriel.ServerLocadora.Service;
 
+import Gabriel.ServerLocadora.DTOs.ModeloDTO;
 import Gabriel.ServerLocadora.entity.Modelo;
 import Gabriel.ServerLocadora.repository.ModeloRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.Banner;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,31 +17,28 @@ public class ModeloService {
     ModeloRepository repository;
 
 
-    public List<Modelo> obterModelos() {
-        return repository.findAll();
+    public List<ModeloDTO> obterModelos() {
+        return repository.obterTodosModelos();
     }
 
-    public Modelo obterModeloById(Integer id) {
-        return repository.findById(id).orElseThrow(() ->
-                new RuntimeException("Modelo não encontrado")
-        );
-    }
-
-    public void inserirModelo(String nome, Integer id, Integer idfabricante) {
-        Modelo modelo = new Modelo();
-        modelo.setNome(nome);
-        modelo.setId(id);
-        modelo.setIdfabricante(idfabricante);
-        repository.save(modelo);
+   public ModeloDTO obterModeloById(Integer id) {
+        Optional<ModeloDTO> modelo = repository.obterModelosById(id);
+        if (modelo.isEmpty()) {
+            throw new RuntimeException("Modelo não existe");
+        }
+        return modelo.get();
     }
 
     public void deletarModelo(Integer id) {
-        repository.deleteById(id);
+        repository.deletarModelo(id);
     }
 
-    public void salvarModelo(Modelo modelo) {
-        repository.save(modelo);
+   public void inserirModelo(Modelo modelo) {
+        repository.inserirModelo(modelo);
+    }
 
+   public void salvarModelo(Modelo modelo) {
+        repository.atualizarModelo(modelo);
     }
 
 }

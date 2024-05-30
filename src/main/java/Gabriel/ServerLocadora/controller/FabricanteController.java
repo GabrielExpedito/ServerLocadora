@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Objects;
 
 /*Classe FabricanteController, é responsável pelo processamento das requisições e por gerar respostas referente a
 entidade Fabricante.
@@ -44,14 +45,14 @@ public class FabricanteController {
     *
     *
     * Sendo assim esse método busca o registro inserido na tabela Fabricante conforme o id informado.
-    * */
+    **/
     @GetMapping("/{id}")
-    public ResponseEntity<Fabricante> getFabricante(@PathVariable(value = "id") Integer id) {
+    public ResponseEntity<Object> getFabricante(@PathVariable(value = "id") Integer id) {
         try {
-            Fabricante fabricante = service.obterFabricantesById(id);
+            Fabricante fabricante = service.obterFabricantesByIdJDBC(id);
             return ResponseEntity.status(HttpStatus.OK).body(fabricante);
         } catch (Exception ex) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Fabricante não encontrado");
         }
     }
 
@@ -61,7 +62,7 @@ public class FabricanteController {
     * específicos
     *
     * Sendo assim esse método inseri novos registros ao banco de dados conforme os atributos da entidade Fabricante.
-    * */
+    **/
     @PostMapping
     public ResponseEntity<String> salvarFabricantes(@RequestBody Fabricante fabricante) {
         try {
@@ -78,7 +79,7 @@ public class FabricanteController {
      *
      * Sendo assim esse método solicita que seja deletado algum registro do banco através do ID informado no
      * acesso do endpoit
-     * */
+     *
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deletarFabricante(@PathVariable(value = "id") Integer id) {
         try {
@@ -96,7 +97,7 @@ public class FabricanteController {
      *
      * Sendo assim esse método pega as novas informações que serão atualizadas conforme o ID do fabricante e
      * persisti elas no banco de dados.
-     * */
+     *
     @PutMapping("/{id}")
     public ResponseEntity<String> atualizarFabricante(@PathVariable(value = "id") Integer id,
                                                       @RequestBody FabricanteDTO fabricanteDTO) {
@@ -106,6 +107,6 @@ public class FabricanteController {
         service.salvarFabricante(fabricante);
         return ResponseEntity.status(HttpStatus.OK).body("Fabricante atualizado com sucesso");
 
-        }
+        }*/
     }
 

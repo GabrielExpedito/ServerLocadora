@@ -8,20 +8,13 @@ import org.springframework.jdbc.core.simple.JdbcClient;
 import org.springframework.stereotype.Repository;
 
 import javax.sql.rowset.CachedRowSet;
-import java.util.List;
+import java.util.*;
 
 @Repository
 public class CarroRepository {
 
     @Autowired
     JdbcClient jdbcClient;
-
-
-    public List<Carro> obterTodosCarros() {
-        List<Carro> carros = jdbcClient
-                .sql("SELECT * FROM carro")
-                .query(Carro.class)
-                .list();
 
         RowMapper<Carro> mapperCarro = (rs, rowNum) -> {
             Carro carro = new Carro();
@@ -38,10 +31,47 @@ public class CarroRepository {
         };
 
         public List<Carro> buscarTodosCarros(CarroFilter filtro) {
+            StringJoiner where = new StringJoiner(" AND");
 
+            Map<String, Object> params = new HashMap<>();
 
+            if(filtro.getIdModelo() != null) {
+                where.add("idmodelo = :idModelo");
+                params.put("idModelo", filtro.getIdModelo());
         }
+            if (filtro.getPlaca() != null) {
+                where.add("placa = :placa");
+                params.put("placa", filtro.getPlaca());
+            }
 
+            if (filtro.getAno() != null) {
+                where.add("ano = :ano");
+                params.put("ano", filtro.getAno());
+            }
+
+            if (filtro.getCor() != null) {
+                where.add("cor = :cor");
+                params.put("cor", filtro.getCor());
+            }
+
+            if (filtro.getDisponivel() != null) {
+                where.add("disponivel = :disponivel");
+                params.put("disponivel", filtro.getDisponivel());
+            }
+
+            if (!params.isEmpty()) {
+                String sql = "SELECT * FROM carro WHERE" + where;
+
+                return jdbcClient
+                        .sql(sql)
+                        .param(params)
+                        .query(mapperCarro).list();
+            }else {
+                return jdbcClient
+                        .sql("SELECT * FROM carro")
+                        .query(mapperCarro)
+                        .list();
+            }
 
     }
 

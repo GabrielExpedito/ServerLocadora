@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
+
 /*
 *   A anotação @Table(name = "fabricante") indica que a entidade será mapeada para a tabela fabricante no banco de dados
 *   A anotação @Entity(name = "Fabricante") indica que a classe é uma entidade que o mesmo nome
@@ -14,15 +15,15 @@ import lombok.NoArgsConstructor;
 *   A anotação @AllArgsConstructor faz com que os métodos construtores com todos os atributos seja criado automaticamente.
 *   A anotação @NoArgsConstructos faz com que os méotodos construtores sem nenhum atributo seja criado automaticamente.
 * */
-@Entity(name = "Fabricante")
+@Entity(name = "fabricante")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class Fabricante {
 
     @Id
+    @org.springframework.data.annotation.Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", unique = true)
     private Integer id;
 
     private String nome;

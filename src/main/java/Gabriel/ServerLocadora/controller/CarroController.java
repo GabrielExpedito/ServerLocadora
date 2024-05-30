@@ -3,6 +3,7 @@ package Gabriel.ServerLocadora.controller;
 import Gabriel.ServerLocadora.DTOs.CarroDTO;
 import Gabriel.ServerLocadora.Service.CarroService;
 import Gabriel.ServerLocadora.entity.Carro;
+import Gabriel.ServerLocadora.filter.CarroFilter;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -10,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 
 @RestController
@@ -20,11 +22,12 @@ public class CarroController {
     CarroService service;
 
     @GetMapping
-    public ResponseEntity<List<Carro>> getCarros() {
-        return ResponseEntity.status(HttpStatus.OK).body(service.obterCarros());
+    public ResponseEntity<List<Carro>> getCarros(@RequestParam Map<String, String> parametros) {
+        CarroFilter filtro = new CarroFilter(parametros);
+        return ResponseEntity.status(HttpStatus.OK).body(service.obterCarros(filtro));
     }
 
-    @GetMapping("/{id}")
+   /* @GetMapping("/{id}")
     public ResponseEntity<Carro> getCarro(@PathVariable(value = "id") Integer id) {
         try {
             Carro carro = service.obterCarroById(id);
@@ -59,7 +62,7 @@ public class CarroController {
         BeanUtils.copyProperties(carroDTO, carro);
         service.inserirCarros(carro);
         return ResponseEntity.status(HttpStatus.OK).body("Carro atualizado com sucesso");
-    }
+    }*/
 
 
 }
