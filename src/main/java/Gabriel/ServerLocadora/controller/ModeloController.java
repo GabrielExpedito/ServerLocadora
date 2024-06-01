@@ -52,7 +52,7 @@ public class ModeloController {
             ModeloDTO modelo = service.obterModeloById(id);
             return ResponseEntity.ok(modelo);
         } catch (Exception ex) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Fabricante não encontrado");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Modelo não encontrado");
         }
     }
 

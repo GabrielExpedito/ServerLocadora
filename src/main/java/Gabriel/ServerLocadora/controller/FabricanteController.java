@@ -79,12 +79,11 @@ public class FabricanteController {
      *
      * Sendo assim esse método solicita que seja deletado algum registro do banco através do ID informado no
      * acesso do endpoit
-     *
+     */
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deletarFabricante(@PathVariable(value = "id") Integer id) {
         try {
             service.deletarFabricante(id);
-
             return ResponseEntity.status(HttpStatus.CREATED).body("Fabricante deletado com sucesso");
         } catch (Exception ex) {
             return ResponseEntity.internalServerError().body("Erro ao deletar o Fabricante");

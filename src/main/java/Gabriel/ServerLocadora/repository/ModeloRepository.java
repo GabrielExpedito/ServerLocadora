@@ -77,7 +77,6 @@ public class ModeloRepository {
                 .param("idfabricante", modelo.getIdfabricante())
                 .param("id", modelo.getId())
                 .update();
-
     }
 }
 

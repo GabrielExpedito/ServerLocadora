@@ -5,6 +5,8 @@ import Gabriel.ServerLocadora.filter.CarroFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.simple.JdbcClient;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
 import javax.sql.rowset.CachedRowSet;
@@ -73,6 +75,51 @@ public class CarroRepository {
                         .list();
             }
 
+    }
+
+    public Integer criarCarro(Carro carro) {
+        String querySql = "INSERT INTO public.carro (idfabricante, idmodelo, placa, cor, disponivel, ano, valorlocacao) " +
+                "VALUES (:idfabricante, :idmodelo, :placa, :cor, :disponivel, :ano, :valorlocacao);";
+
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+
+        jdbcClient.sql(querySql)
+                .param("idfabricante", carro.getIdfabricante())
+                .param("idmodelo", carro.getIdmodelo())
+                .param("placa", carro.getPlaca())
+                .param("cor", carro.getCor())
+                .param("disponivel", carro.isDisponivel())
+                .param("ano", carro.getAno())
+                .param("valorlocacao", carro.getValorlocacao())
+                .update(keyHolder, "id");
+
+        return keyHolder.getKeyAs(Integer.class);
+    }
+
+    public Integer atualizarCarro(Carro carro) {
+            String querySql = """
+                    UPDATE public.carro 
+                    SET idfabricante= :idfabricante, cor=:cor, idmodelo=:idmodelo, ano= :ano, placa=:placa, disponivel=:disp
+                    WHERE id = :id
+                    """;
+
+            return jdbcClient.sql(querySql)
+                    .param("id", carro.getId())
+                    .param("idfabricante", carro.getIdfabricante())
+                    .param("idmodelo", carro.getIdmodelo())
+                    .param("placa", carro.getPlaca())
+                    .param("cor", carro.getCor())
+                    .param("disp", carro.isDisponivel())
+                    .param("ano", carro.getAno())
+                    .update();
+    }
+
+    public Integer deletarCarro(Integer id) {
+            String querySql = "DELETE FROM public.carro WHERE id= :id;";
+
+            return jdbcClient.sql(querySql)
+                    .param("id", id)
+                    .update();
     }
 
 }

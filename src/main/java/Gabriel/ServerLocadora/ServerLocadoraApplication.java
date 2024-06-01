@@ -9,5 +9,4 @@ public class ServerLocadoraApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(ServerLocadoraApplication.class, args);
 	}
-
 }

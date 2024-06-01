@@ -61,8 +61,6 @@ public class FabricanteRepository {
                 .param("id", id)
                 .update();
      }
-
-
 }
 
 

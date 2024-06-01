@@ -39,8 +39,8 @@ public class FabricanteService {
         repository.criarFabricante(fabricante);
     }
 
-    /*public void deletarFabricante(Integer id) {
-        repository.deleteById(id);
+    public void deletarFabricante(Integer id) {
+        repository.deletarFabricante(id);
     }
 
     /*public void atualizarFabricante(Integer id, String novoNome) {
